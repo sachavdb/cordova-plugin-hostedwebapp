@@ -44,13 +44,13 @@ function configureParser(context) {
   var cordova_util = context.requireCordovaModule('cordova-lib/src/cordova/util');
   var ConfigParser;
   try {
-    ConfigParser = context.requireCordovaModule('cordova-lib/node_modules/cordova-common').ConfigParser;
+    ConfigParser = context.requireCordovaModule('cordova-common').ConfigParser;
   } catch (err) {
     // Fallback to old location of config parser (old versions of cordova-lib)
     ConfigParser = context.requireCordovaModule('cordova-lib/src/configparser/ConfigParser');
   }
 
-  etree = context.requireCordovaModule('cordova-lib/node_modules/elementtree');
+  etree = require('elementtree');
 
   var xml = cordova_util.projectConfig(context.opts.projectRoot);
   config = createConfigParser(xml, etree, ConfigParser);
@@ -70,7 +70,7 @@ module.exports = function (context) {
     return;
   }
   
-  Q = context.requireCordovaModule('q');
+  Q = require('q');
   var task = Q.defer();
 
   var destPath = path.join(projectRoot, "platforms", "windows", "www", "wrapper.html");
